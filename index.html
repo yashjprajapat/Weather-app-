@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Weather App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-aswesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="api.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa fa-map-marker"></i>
+                <span id="location"></span>
+            </h2>
+            <h6 id="weather"></h6>
+            <h4><span id="temp"></span><sup>o</sup>C</h4>
+            <img src="" id="icon" alt="">
+            <button class="refresh" onclick="window.location.reload()"><i class="fa fa-refresh"></i></button>
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    link = "https://api.openweathermap.org/data/2.5/weather?q=Akola&appid=d1ac7cb7e0b4d9391235572f495fa867";
+    var request = new XMLHttpRequest();
+    request.open('GET', link, true);
+    request.onload = function () {
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        document.getElementById("weather").innerHTML = obj.weather[0].description;
+        document.getElementById("location").innerHTML = obj.name;
+        document.getElementById("temp").innerHTML = Math.round(obj.main.temp - 273.15);
+        document.getElementById('icon').src = "https://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
+    }
+    if (request.status >= 200 && request.status < 400) {
+        var temp = obj.main.temp;
+    }
+    else {
+        console.log("The city data is not available");
+    }
+    request.send();
+</script>
+
+</html>
